@@ -3,8 +3,11 @@ package main
 import (
 	"fmt"
         "net/http"
+	"flag"
 	"io/ioutil"
 	"encoding/json"
+	"github.com/sachin147/constants"
+	"github.com/sachin147/keys"
 )
 
 type Provider struct {
@@ -30,7 +33,11 @@ type WordExamples struct {
 
 func main() {
 	
-	res, err := http.Get("http://api.wordnik.com:80/v4/word.json/wonderful/examples?includeDuplicates=false&useCanonical=false&skip=0&limit=5&api_key=a2a73e7b926c924fad7001ca3111acd55af2ffabf50eb4ae5")
+	wordexample := flag.String("wordexamples", "", "Get examples of a word")
+	flag.Parse()
+	word := *wordexample
+	url := constants.API_URL + constants.WORD_JSON + word + constants.EXAMPLES_PATH + constants.QUERY_PATH + keys.WORDNIK_API_KEY
+	res, err := http.Get(url)
 	
 	if err != nil {
 		panic(err.Error())
