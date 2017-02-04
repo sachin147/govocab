@@ -2,39 +2,57 @@ package models
 
 
 type Definition struct {	
-	ExtendedText string `json:"extendedText"`
-	Text string `json:"text"`
-	SourceDictionary string `json:"sourceDictionary"`
+	ExtendedText string `json:"extendedText,omitempty"`
+	Text string `json:"text,omitempty"`
+	SourceDictionary string `json:"sourceDictionary,omitempty"`
 	Citations struct {
 		Citation []struct {
-			Cite string `json:"cite"`
-			Source string `json:"source"`
-		}
-	}
+			Cite string `json:"cite,omitempty"`
+			Source string `json:"source,omitempty"`
+		} 
+	} `json:"citations,omitempty"`
 	Labels struct {
 		Label []struct {
-			Text string `json:"text"`
-			Type string `json:"type"`
+			Text string `json:"text,omitempty"`
+			Type string `json:"type,omitempty"`
 		}
-	}
-	Score float64 `json:"score"`
+	} `json:"labels,omitempty"`
+	Score float64 `json:"score,omitempty"`
 	ExampleUses struct {
 		ExampleUse []struct {
-			Text string `json:"text"`
+			Text string `json:"text,omitempty"`
 		}
-	}
-	AttributionUrl string `json:"attributionUrl"`
-	SeqString string `json:"seqString"`
-	AttributionText string `json:"attributionText"`
+	} `json:"exampleUses,omitempty"`
+	AttributionUrl string `json:"attributionUrl,omitempty"`
+	SeqString string `json:"seqString,omitempty"`
+	AttributionText string `json:"attributionText,omitempty"`
 	RelatedWords struct {
 		RelatedWord []struct {
-			Label1 string `json:"label1"`
-			RelationshipType string `json:"relationshipType"`
-			Label2 string `json:"label2"`
-			Label3 string `json:"label3"`
-			Words []string `json:"words"`
-			Gram string `json:"gram"`
-			Label4 string `json:"label4"`
+			Label1 string `json:"label1,omitempty"`
+			RelationshipType string `json:"relationshipType,omitempty"`
+			Label2 string `json:"label2,omitempty"`
+			Label3 string `json:"label3,omitempty"`
+			Words []string `json:"words,omitempty"`
+			Gram string `json:"gram,omitempty"`
+			Label4 string `json:"label4,omitempty"`
 		}
-	}
+	} `json:"relatedWords,omitempty"`
+	Sequence string `json:"sequence,omitempty"`
+	Word string `json:"word,omitempty"`
+	Notes struct {
+		Note []struct {
+			Notetype string `json:"noteType,omitempty"`
+			AppliesTo []string `json:"appliesTo,omitempty"`
+			Value string `json:"value,omitempty"`
+			Pos string `json:"pos,omitempty"`
+		}
+	} `json:"notes,omitempty"`
+	TextProns struct {
+		TextPron []struct {
+			Raw string `json:"raw,omitempty"`
+			Seq int `json:"seq,omitempty"`
+			RawType string `json:"string,omitempty"`
+		}
+	} `json:"textProns,omitempty"`
+	PartOfSpeech string `json:"partOfSpeech,omitempty"`	
 }
