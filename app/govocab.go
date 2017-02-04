@@ -14,9 +14,14 @@ import (
 func main() {
 	
 	wordexample := flag.String("wordexamples", "", "Get examples of a word")
+	worddefinition := flag.String("worddefinitions", "", "Get definitions of a word")
 	flag.Parse()
 	word := *wordexample
+	wordfordefinition := *worddefinition
 	url := constants.API_URL + constants.WORD_JSON + word + constants.EXAMPLES_PATH + constants.QUERY_PATH + keys.WORDNIK_API_KEY
+	definitionurl := constants.API_URL + constants.WORD_JSON + wordfordefinition + constants.DEFINITIONS_PATH + constants.QUERY_PATH_DEFINITION + keys.WORDNIK_API_KEY
+
+	 
 	res, err := http.Get(url)
 	
 	if err != nil {
@@ -53,7 +58,10 @@ func ParseWordExamples(wordexamplesbody []byte) (*models.WordExamples, error) {
 }
 
 
-
+parseWordDefinitions(worddefinitionsbody []byte)(*models.Definition, error) {
+	
+	
+}
 
 
 

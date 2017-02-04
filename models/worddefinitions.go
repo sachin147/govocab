@@ -44,7 +44,7 @@ type Definition struct {
 			Notetype string `json:"noteType,omitempty"`
 			AppliesTo []string `json:"appliesTo,omitempty"`
 			Value string `json:"value,omitempty"`
-			Pos string `json:"pos,omitempty"`
+			Pos int `json:"pos,omitempty"`
 		}
 	} `json:"notes,omitempty"`
 	TextProns struct {
