@@ -17,7 +17,7 @@ func main() {
 	worddefinition := flag.String("worddefinitions", "", "Get definitions of a word")
 	flag.Parse()
 	word := *wordexample
-	wordfordefinition := *worddefinition
+	
 	url := constants.API_URL + constants.WORD_JSON + word + constants.EXAMPLES_PATH + constants.QUERY_PATH + keys.WORDNIK_API_KEY
 	definitionurl := constants.API_URL + constants.WORD_JSON + wordfordefinition + constants.DEFINITIONS_PATH + constants.QUERY_PATH_DEFINITION + keys.WORDNIK_API_KEY
 
@@ -46,6 +46,31 @@ func main() {
 		fmt.Println("=======================")
 	}
 		
+	
+	wordfordefinition := *worddefinition
+	definitionurl := constants.API_URL + constants.WORD_JSON + wordfordefinition + constants.DEFINITIONS_PATH + constants.QUERY_PATH_DEFINITION + keys.WORDNIK_API_KEY
+
+	res, err := http.Get(definitionurl)
+	
+	if err != nil {
+		panic(err.Error())
+	}
+	defer res.Body.Close()
+	
+	if err != nil {
+           panic(err.Error())
+        }
+	
+	body, err := ioutil.ReadAll(res.Body)
+	if err != nil {
+           panic(err.Error())
+        }
+
+	
+	worddefinitions, err := parseWordDefinitions(body)
+
+	
+
 }
 
 func ParseWordExamples(wordexamplesbody []byte) (*models.WordExamples, error) {
