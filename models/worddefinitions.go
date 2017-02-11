@@ -56,3 +56,8 @@ type Definition struct {
 	} `json:"textProns,omitempty"`
 	PartOfSpeech string `json:"partOfSpeech,omitempty"`	
 }
+
+
+type WordDefinitions struct {
+	Definitions []Definition
+}
