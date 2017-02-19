@@ -18,8 +18,7 @@ func main() {
 	flag.Parse()
 	word := *wordexample
 	
-	url := constants.API_URL + constants.WORD_JSON + word + constants.EXAMPLES_PATH + constants.QUERY_PATH + keys.WORDNIK_API_KEY
-	definitionurl := constants.API_URL + constants.WORD_JSON + wordfordefinition + constants.DEFINITIONS_PATH + constants.QUERY_PATH_DEFINITION + keys.WORDNIK_API_KEY
+	url := constants.API_URL + constants.WORD_JSON + word + constants.EXAMPLES_PATH + constants.QUERY_PATH + keys.WORDNIK_API_KEY	
 
 	 
 	res, err := http.Get(url)
@@ -50,42 +49,48 @@ func main() {
 	wordfordefinition := *worddefinition
 	definitionurl := constants.API_URL + constants.WORD_JSON + wordfordefinition + constants.DEFINITIONS_PATH + constants.QUERY_PATH_DEFINITION + keys.WORDNIK_API_KEY
 
-	res, err := http.Get(definitionurl)
+	resp, err := http.Get(definitionurl)
 	
 	if err != nil {
 		panic(err.Error())
 	}
-	defer res.Body.Close()
+	defer resp.Body.Close()
 	
 	if err != nil {
            panic(err.Error())
         }
 	
-	body, err := ioutil.ReadAll(res.Body)
+	defbody, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
            panic(err.Error())
         }
 
 	
-	worddefinitions, err := parseWordDefinitions(body)
-
+	worddefinitions, err := parseWordDefinitions(defbody)
+	for _, definition := range *worddefinitions {
+		fmt.Println(definition.Text)
+		fmt.Println()
+	}
 	
-
 }
 
 func ParseWordExamples(wordexamplesbody []byte) (*models.WordExamples, error) {
-    var wordexamples models.WordExamples
-    err := json.Unmarshal(wordexamplesbody, &wordexamples)
-    if(err != nil){
-        fmt.Println("Error ", err)
-    }
-    return &wordexamples, err
-}
+	var wordexamples models.WordExamples
+	err := json.Unmarshal(wordexamplesbody, &wordexamples)
+	if(err != nil){
+        	fmt.Println("Error ", err)
+	}
+	return &wordexamples, err
+}	
 
 
-parseWordDefinitions(worddefinitionsbody []byte)(*models.Definition, error) {
-	
-	
+func parseWordDefinitions(worddefinitionsbody []byte)(*[]models.Definition, error) {	
+	worddefinitions := make([]models.Definition,0)
+	err := json.Unmarshal(worddefinitionsbody, &worddefinitions)
+	if(err != nil) {
+		fmt.Println("Error", err)
+	}
+	return &worddefinitions, err	
 }
 
 

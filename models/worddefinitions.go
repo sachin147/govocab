@@ -51,13 +51,11 @@ type Definition struct {
 		TextPron []struct {
 			Raw string `json:"raw,omitempty"`
 			Seq int `json:"seq,omitempty"`
-			RawType string `json:"string,omitempty"`
+			RawType string `json:"rawType,omitempty"`
 		}
 	} `json:"textProns,omitempty"`
 	PartOfSpeech string `json:"partOfSpeech,omitempty"`	
 }
 
 
-type WordDefinitions struct {
-	Definitions []Definition
-}
+
